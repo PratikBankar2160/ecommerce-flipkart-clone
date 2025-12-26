@@ -1,0 +1,61 @@
+package jwt_ecommerce.Controller;
+
+import jwt_ecommerce.Entity.Product;
+import jwt_ecommerce.Service.ProductService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/products")
+@CrossOrigin
+public class ProductController {
+
+    private final ProductService service;
+
+    public ProductController(ProductService service) {
+        this.service = service;
+    }
+
+    @PostMapping
+    public ResponseEntity<Product> addProduct(@RequestBody Product product) {
+        Product saved = service.addProduct(product);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Product>> getAllProducts() {
+        return ResponseEntity.ok(service.getAllProducts());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getProduct(@PathVariable Long id) {
+        Product product = service.getProductById(id);
+        return product != null
+                ? ResponseEntity.ok(product)
+                : ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body("Product not found with id " + id);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateProduct(
+            @PathVariable Long id,
+            @RequestBody Product product) {
+
+        Product updated = service.updateProduct(id, product);
+        return updated != null
+                ? ResponseEntity.ok(updated)
+                : ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body("Product not found with id " + id);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
+        return service.deleteProduct(id)
+                ? ResponseEntity.ok("Deleted successfully")
+                : ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body("Product not found with id " + id);
+    }
+}
