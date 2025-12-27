@@ -1,8 +1,11 @@
 package jwt_ecommerce.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Table(name = "categories")
@@ -18,4 +21,9 @@ public class Category {
     private String name;
 
     private String description;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Product> products;
+
 }

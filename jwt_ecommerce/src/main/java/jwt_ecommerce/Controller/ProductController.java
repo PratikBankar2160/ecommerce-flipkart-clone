@@ -58,4 +58,18 @@ public class ProductController {
                 : ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body("Product not found with id " + id);
     }
+
+    @GetMapping("/category/{categoryId}")
+    public ResponseEntity<?> getProductsByCategory(@PathVariable Long categoryId) {
+        List<Product> products = service.getProductsByCategory(categoryId);
+
+        if (products.isEmpty()) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("No products found for category " + categoryId);
+        }
+
+        return ResponseEntity.ok(products);
+    }
+
 }

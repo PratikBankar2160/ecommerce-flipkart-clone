@@ -65,4 +65,9 @@ public class ProductService {
         }
         return false;
     }
+
+    public List<Product> getProductsByCategory(Long categoryId) {
+        return repo.findByCategoryId(categoryId);
+    }
+
 }
