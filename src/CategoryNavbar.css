@@ -1,0 +1,26 @@
+.category-navbar {
+  display: flex;
+  gap: 25px;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.category-navbar::-webkit-scrollbar {
+  display: none;
+}
+
+.category-item {
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  color: #212121;
+}
+
+.category-item:hover {
+  color: #2874f0;
+  border-bottom: 2px solid #2874f0;
+  padding-bottom: 4px;
+}
