@@ -1,0 +1,39 @@
+.product-card {
+  background: #fff;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  transition: box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.product-img img {
+  width: 180px;
+  height: auto;
+  object-fit: contain;
+}
+
+.product-title {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.product-specs {
+  padding-left: 18px;
+  color: #555;
+  font-size: 14px;
+}
+
+.product-specs li {
+  margin-bottom: 4px;
+}
+
+.product-price h4 {
+  color: #000;
+}
+
+.product-price {
+  min-width: 160px;
+}

@@ -1,40 +1,64 @@
 import React from "react";
 
 const ProductCard = ({ product }) => {
-  return (
-    <div className="col-md-3 mb-4">
-      <div className="card h-100 shadow-sm">
+  const discount =
+  product.oldPrice
+    ? Math.round(
+        ((product.oldPrice - product.price) / product.oldPrice) * 100
+      )
+    : 0;
 
+  return (
+    <div className="product-card d-flex p-3 mb-3">
+
+      {/* Image */}
+      <div className="product-img">
         <img
-          src="https://via.placeholder.com/300"
-          // src="https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/a/c/k/-original-imagtc5fuzkvczr7.jpeg?q=70"
-          className="card-img-top"
+          src={product.image || "https://via.placeholder.com/200"}
           alt={product.name}
         />
+      </div>
 
-        <div className="card-body d-flex flex-column">
-          <h5 className="card-title">{product.name}</h5>
+      {/* Details */}
+      <div className="product-details flex-grow-1 ms-4">
+        <h5 className="product-title">{product.name}</h5>
 
-          <p className="card-text text-muted small">
-            {product.description}
-          </p>
-
-          <div className="mb-2">
-            <span className="fw-bold text-success fs-5">
-              ₹{product.price}
-            </span>
-
-            {product.oldPrice && (
-              <span className="text-muted text-decoration-line-through ms-2">
-                ₹{product.oldPrice}
-              </span>
-            )}
-          </div>
-
-          <button className="btn btn-primary mt-auto">
-            Add to Cart
-          </button>
+        <div className="rating mb-2">
+          <span className="badge bg-success me-2">4.6 ★</span>
+          <span className="text-muted small">
+            {product.brand}
+          </span>
         </div>
+
+        <ul className="product-specs">
+          <li>{product.description}</li>
+          {/* <li>6.1 inch Super Retina XDR Display</li>
+          <li>48MP + 12MP | 12MP Front Camera</li>
+          <li>A18 Chip, 6 Core Processor</li>
+          <li>1 Year Warranty</li> */}
+        </ul>
+
+        <button className="btn btn-primary mt-auto"> Add to Cart </button>
+      </div>
+
+      {/* Price */}
+      <div className="product-price text-end">
+        <h4 className="fw-bold">₹{product.price}</h4>
+
+        {product.oldPrice && (
+          <div>
+            <span className="text-muted text-decoration-line-through">
+              ₹{product.oldPrice}
+            </span>
+            {/* 15% off */}
+            <span className="text-success ms-2">
+              {discount}% off
+            </span>
+          </div>
+        )}
+
+        <p className="text-danger small mt-1">Only {product.quantity} left</p>
+        <p className="text-success small">Bank Offer</p>
       </div>
     </div>
   );
