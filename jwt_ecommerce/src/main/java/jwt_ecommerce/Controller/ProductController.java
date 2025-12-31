@@ -72,4 +72,17 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
+    @GetMapping("/brands/{categoryId}")
+    public List<String> getBrandsByCategory(@PathVariable Long categoryId) {
+        return service.getBrandsByCategory(categoryId);
+    }
+
+    @GetMapping("/category/{categoryId}/brand/{brand}")
+    public List<Product> getProductsByCategoryAndBrand(
+            @PathVariable Long categoryId,
+            @PathVariable String brand) {
+
+        return service.getProductsByCategoryAndBrand(categoryId, brand);
+    }
+
 }

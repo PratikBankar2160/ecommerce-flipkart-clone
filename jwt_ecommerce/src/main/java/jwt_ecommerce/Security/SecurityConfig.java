@@ -31,6 +31,7 @@ public class SecurityConfig {
                         .requestMatchers("/categories/**").permitAll()
                         .requestMatchers("/cart/**").permitAll()
                         .requestMatchers("/orders/**").permitAll()
+                        .requestMatchers("/products/brands/**").permitAll()
 //                        .requestMatchers("/orders/admin/**").hasRole("ADMIN")
                         .requestMatchers("/payments/**").permitAll()
 

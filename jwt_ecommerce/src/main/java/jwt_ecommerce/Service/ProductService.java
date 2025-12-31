@@ -70,4 +70,11 @@ public class ProductService {
         return repo.findByCategoryId(categoryId);
     }
 
+    public List<String> getBrandsByCategory(Long categoryId) {
+        return repo.findDistinctBrandsByCategoryId(categoryId);
+    }
+
+    public List<Product> getProductsByCategoryAndBrand(Long categoryId, String brand) {
+        return repo.findByCategoryIdAndBrand(categoryId, brand);
+    }
 }
