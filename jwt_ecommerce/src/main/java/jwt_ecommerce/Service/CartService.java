@@ -7,9 +7,11 @@ import jwt_ecommerce.DTO.UpdateCartItemRequest;
 import jwt_ecommerce.Entity.Cart;
 import jwt_ecommerce.Entity.CartItem;
 import jwt_ecommerce.Entity.Product;
+import jwt_ecommerce.Entity.User;
 import jwt_ecommerce.Repository.CartItemRepository;
 import jwt_ecommerce.Repository.CartRepository;
 import jwt_ecommerce.Repository.ProductRepository;
+import jwt_ecommerce.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,10 +30,47 @@ public class CartService {
     @Autowired
     private ProductRepository productRepo;
 
+    @Autowired
+    private UserRepository userRepo;
+
+//    public CartItemResponse addToCart(AddToCartRequest request) {
+//
+//        Cart cart = cartRepo.findById(request.getCartId()).orElseThrow();
+//        Product product = productRepo.findById(request.getProductId()).orElseThrow();
+//
+//        CartItem item = new CartItem();
+//        item.setCart(cart);
+//        item.setProduct(product);
+//        item.setQuantity(request.getQuantity());
+//        item.setPrice(product.getPrice());
+//
+//        CartItem saved = cartItemRepo.save(item);
+//
+//        CartItemResponse res = new CartItemResponse();
+
+    /// /        res.setId(saved.getId());
+//        res.setItemId(saved.getId());
+//        res.setQuantity(saved.getQuantity());
+//        res.setPrice(saved.getPrice());
+//        res.setProductId(product.getId());
+//        res.setProductName(product.getName());
+//
+//        return res;
+//    }
     public CartItemResponse addToCart(AddToCartRequest request) {
 
-        Cart cart = cartRepo.findById(request.getCartId()).orElseThrow();
-        Product product = productRepo.findById(request.getProductId()).orElseThrow();
+        User user = userRepo.findById(request.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Cart cart = cartRepo.findByUser(user)
+                .orElseGet(() -> {
+                    Cart newCart = new Cart();
+                    newCart.setUser(user);
+                    return cartRepo.save(newCart);
+                });
+
+        Product product = productRepo.findById(request.getProductId())
+                .orElseThrow(() -> new RuntimeException("Product not found"));
 
         CartItem item = new CartItem();
         item.setCart(cart);
@@ -42,7 +81,6 @@ public class CartService {
         CartItem saved = cartItemRepo.save(item);
 
         CartItemResponse res = new CartItemResponse();
-//        res.setId(saved.getId());
         res.setItemId(saved.getId());
         res.setQuantity(saved.getQuantity());
         res.setPrice(saved.getPrice());
@@ -51,6 +89,7 @@ public class CartService {
 
         return res;
     }
+
 
     public CartResponse viewCart(Long cartId) {
 

@@ -1,8 +1,11 @@
 package jwt_ecommerce.Repository;
 
 import jwt_ecommerce.Entity.Cart;
+import jwt_ecommerce.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CartRepository extends JpaRepository<Cart, Long> {
+import java.util.Optional;
 
+public interface CartRepository extends JpaRepository<Cart, Long> {
+    Optional<Cart> findByUser(User user);
 }
