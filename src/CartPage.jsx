@@ -5,17 +5,9 @@ import "./CartPage.css";
 
 const CartPage = () => {
 
-//   const userId = localStorage.getItem("userId"); // JWT user
- 
-// Retrieve
-
-const userId = JSON.parse(localStorage.getItem("userId")); // 1 (number)
-console.log(userId);
-
-// localStorage.clear(); 
+  const userId = JSON.parse(localStorage.getItem("userId"));
 
   const [cart, setCart] = useState(null);
-  
 
   useEffect(() => {
     axios
@@ -24,38 +16,43 @@ console.log(userId);
       .catch(err => console.log(err));
   }, [userId]);
 
-  if (!cart) return <h3 className="text-center mt-5">Loading Cart...</h3>;
+  if (!cart) {
+    return <h3 className="text-center mt-5">Loading Cart...</h3>;
+  }
 
-  // calculations
+  // Calculations
   const totalItems = cart.items.reduce(
-  (sum, item) => sum + item.quantity,
-  0
-);
+    (sum, item) => sum + item.quantity,
+    0
+  );
 
-const totalOldPrice = cart.items.reduce(
-  (sum, item) => sum + item.oldPrice * item.quantity,
-  0
-);
+  const totalOldPrice = cart.items.reduce(
+    (sum, item) => sum + item.oldPrice * item.quantity,
+    0
+  );
 
-// console.log(item);
-
-
-const youSaved = totalOldPrice - cart.totalAmount;
+  const youSaved = totalOldPrice - cart.totalAmount;
 
   return (
     <div className="container mt-4">
       <div className="row">
 
-        {/* LEFT SIDE - ITEMS */}
+        {/* LEFT SIDE */}
         <div className="col-md-8">
-          <h4 className="mb-3">My Cart ({totalItems} items)</h4>
+          <h4 className="mb-3">
+            My Cart ({totalItems} items)
+          </h4>
 
           {cart.items.map(item => (
-            <CartItem key={item.itemId} item={item} />
+            <CartItem
+              key={item.itemId}
+              item={item}
+              setCart={setCart}
+            />
           ))}
         </div>
 
-        {/* RIGHT SIDE - SUMMARY */}
+        {/* RIGHT SIDE */}
         <div className="col-md-4">
           <div className="cart-summary card p-3">
             <h5>PRICE DETAILS</h5>
@@ -74,7 +71,7 @@ const youSaved = totalOldPrice - cart.totalAmount;
             <hr />
 
             <h6 className="text-success">
-              You saved ₹{youSaved} on this order
+              You saved ₹{youSaved}
             </h6>
 
             <button className="btn btn-warning w-100 mt-3">

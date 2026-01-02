@@ -1,7 +1,10 @@
 import React from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
+
+  let navigate = useNavigate();
 
   const addToCart = () => {
 
@@ -20,6 +23,7 @@ const ProductCard = ({ product }) => {
     })
       .then(() => {
         alert("Product added to cart");
+        navigate("/cart")
       })
       .catch(() => {
         alert("Failed to add product");
@@ -62,7 +66,7 @@ const ProductCard = ({ product }) => {
 
         <button
           className="btn btn-primary mt-auto"
-          onClick={() => addToCart(product.id)}
+          onClick={() => addToCart(product.id) }
         >
           Add to Cart
         </button>
