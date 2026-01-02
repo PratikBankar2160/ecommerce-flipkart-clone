@@ -8,7 +8,7 @@ const ProductCard = ({ product }) => {
 
   const addToCart = () => {
 
-    let userId = 2;
+    let userId = 3;
     localStorage.setItem("userId", JSON.stringify(userId));
 
     

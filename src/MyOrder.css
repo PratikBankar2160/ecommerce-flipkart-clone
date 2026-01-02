@@ -1,0 +1,174 @@
+.my-orders-page {
+  max-width: 900px;
+}
+
+/* EMPTY STATE */
+.empty-orders {
+  text-align: center;
+  color: #777;
+  margin-top: 60px;
+}
+
+.empty-orders i {
+  font-size: 60px;
+  margin-bottom: 10px;
+}
+
+/* ORDER CARD */
+.order-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.order-card:hover {
+  transform: translateY(-4px);
+  box-shadow:1px 10px 80px rgba(18, 47, 209, 0.537), -20px -0px 30px rgba(208, 6, 235, 0.203);
+}
+
+/* HEADER */
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-header h5 {
+  font-weight: 600;
+  margin: 0;
+}
+
+/* STATUS */
+.order-status {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.order-status.delivered {
+  background: #e6f4ea;
+  color: #198754;
+}
+
+.order-status.pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.order-status.cancelled {
+  background: #f8d7da;
+  color: #dc3545;
+}
+
+/* TOTAL */
+.order-total {
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+/* ITEMS GRID */
+.order-item-row {
+  display: grid;
+  grid-template-columns: 1fr 120px 100px;
+  align-items: center;
+  padding: 8px 0;
+  /* border-top: 1px dashed #e0e0e0; */
+}
+
+.order-item-row:last-child {
+  border-bottom: none;
+}
+
+/* ITEM CELLS */
+.item-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.item-qty {
+  text-align: center;
+  font-weight: 500;
+}
+
+.item-price {
+  text-align: right;
+  font-weight: 600;
+}
+
+/* COMMON STATUS STYLE */
+.order-status {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* PLACED */
+.order-status.placed {
+  background-color: #e3f2fd;
+  color: #0d6efd;
+}
+
+/* PAID */
+.order-status.paid {
+  background-color: #e8f5e9;
+  color: #198754;
+}
+
+/* SHIPPED */
+.order-status.shipped {
+  background-color: #ede7f6;
+  color: #6f42c1;
+}
+
+/* OUT FOR DELIVERY */
+.order-status.out_for_delivery {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+/* DELIVERED */
+.order-status.delivered {
+  background-color: #d1e7dd;
+  color: #0f5132;
+}
+
+/* CANCELLED */
+.order-status.cancelled {
+  background-color: #f8d7da;
+  color: #842029;
+}
+
+/* Total amount row */
+.total-amount-row {
+  padding: 8px 0;
+  border-top: 1px dashed #e0e0e0;
+  margin-top: 10px;
+}
+
+/* Amount text */
+.order-total {
+  font-size: 18px;
+  font-weight: 700;
+  color: #198754; /* success green */
+  display: flex;
+  align-items: center;
+}
+
+/* Rupee icon */
+.order-total i {
+  font-size: 16px;
+}

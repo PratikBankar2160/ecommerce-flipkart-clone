@@ -2,10 +2,25 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import CartItem from "./CartItem";
 import "./CartPage.css";
+import { useNavigate } from "react-router-dom";
 
 const CartPage = () => {
   const userId = JSON.parse(localStorage.getItem("userId"));
+  const cartId = userId;
   const [cart, setCart] = useState(null);
+
+  let navigate = useNavigate();
+
+  const checkout = async () => {
+  await axios.post(
+    // `http://localhost:8080/orders/checkout/${userId}`
+    `http://localhost:8080/orders/checkout/${userId}/${cartId}`
+  );
+
+  alert("Order placed successfully");
+  navigate("/my-orders"); // 🔁 redirect
+};
+
 
   // Fetch cart from backend
   const fetchCart = () => {
@@ -77,7 +92,7 @@ const CartPage = () => {
             </h6>
 
             {/* Place Order Button */}
-            <button className="btn btn-warning w-100 mt-3 fw-bold shadow-sm">
+            <button className="btn btn-warning w-100 mt-3 fw-bold shadow-sm" onClick={checkout}>
               <i className="bi bi-bag-check me-2"></i>
               Place Order
             </button>

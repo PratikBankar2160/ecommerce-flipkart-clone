@@ -29,7 +29,7 @@ export default function Navbar() {
             </li>
 
             <li className="nav-item">
-              <Link className="nav-link" to="/products">Products</Link>
+              <Link className="nav-link" to="/my-orders">My Orders</Link>
             </li>
 
             <li className="nav-item">
