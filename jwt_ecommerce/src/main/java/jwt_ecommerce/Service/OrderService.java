@@ -104,5 +104,24 @@ public class OrderService {
         return orderRepo.findAll();
     }
 
+    //Cancel order
+    public void cancelOrder(Long orderId) {
+
+        Order order = orderRepo.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+
+        // Business rule
+        if (order.getStatus() == OrderStatus.SHIPPED ||
+                order.getStatus() == OrderStatus.OUT_FOR_DELIVERY ||
+                order.getStatus() == OrderStatus.DELIVERED) {
+
+            throw new IllegalStateException(
+                    "Order cannot be cancelled at this stage"
+            );
+        }
+
+        order.setStatus(OrderStatus.CANCELLED);
+        orderRepo.save(order);
+    }
 
 }
