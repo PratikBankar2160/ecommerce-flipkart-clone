@@ -19,13 +19,29 @@ const MyOrders = () => {
         });
     };
 
-
-    useEffect(() => {
+    const fetchOrders = () => {
         axios
             .get(`http://localhost:8080/orders/user/${userId}`)
             .then(res => setOrders(res.data))
             .catch(() => alert("Failed to load orders"));
+    };
+
+    useEffect(() => {
+        fetchOrders();
     }, [userId]);
+
+    // ✅ FIXED cancel order
+    const cancelOrder = (orderId) => {
+        axios
+            .put(`http://localhost:8080/orders/${orderId}/cancel`)
+            .then(() => {
+                alert("Order cancelled successfully");
+                fetchOrders();
+            })
+            .catch(err => {
+                alert(err.response?.data || "Cancel failed");
+            });
+    };
 
     return (
         <div className="container my-orders-page mt-4">
@@ -42,6 +58,8 @@ const MyOrders = () => {
             ) : (
                 orders.map(order => (
                     <div key={order.id} className="order-card">
+
+                        {/* HEADER */}
                         <div className="order-header">
                             <div>
                                 <h5>
@@ -55,9 +73,6 @@ const MyOrders = () => {
                                 </p>
                             </div>
 
-                            {/* <span className={`order-status ${order.status.toLowerCase()}`}>
-                {order.status}
-              </span> */}
                             <span className={`order-status ${order.status.toLowerCase()}`}>
                                 {order.status === "PLACED" && <i className="bi bi-clipboard-check"></i>}
                                 {order.status === "PAID" && <i className="bi bi-credit-card"></i>}
@@ -67,7 +82,6 @@ const MyOrders = () => {
                                 {order.status === "CANCELLED" && <i className="bi bi-x-circle-fill"></i>}
                                 {order.status.replaceAll("_", " ")}
                             </span>
-
                         </div>
 
                         {/* ITEMS */}
@@ -88,6 +102,7 @@ const MyOrders = () => {
                             </div>
                         ))}
 
+                        {/* TOTAL */}
                         <div className="d-flex justify-content-between align-items-center mb-2 total-amount-row">
                             <span className="fw-semibold text-muted">
                                 Total Amount
@@ -98,6 +113,19 @@ const MyOrders = () => {
                                 {order.totalAmount}
                             </span>
                         </div>
+
+                        {/* ACTIONS */}
+                        <div className="order-actions">
+                            {(order.status === "PLACED" || order.status === "PAID") && (
+                                <button
+                                    className="cancel-btn"
+                                    onClick={() => cancelOrder(order.id)}
+                                >
+                                    Cancel Order
+                                </button>
+                            )}
+                        </div>
+
                     </div>
                 ))
             )}
